@@ -682,10 +682,10 @@ export default function App() {
   };
 
   return (
-    <div className="relative w-screen h-screen bg-[#100905] flex flex-col justify-between items-center select-none overflow-hidden text-amber-100 font-sans">
+    <div className="relative flex min-h-dvh w-full flex-col items-center justify-between overflow-x-hidden bg-[#100905] font-sans text-amber-100 select-none lg:h-dvh lg:overflow-hidden">
       
       {/* HEADER / MARCADOR CRIOLLO */}
-      <div className="w-full max-w-2xl px-4 pt-3 flex justify-between items-center gap-2 z-20">
+      <div className="z-20 flex w-full max-w-2xl shrink-0 items-center justify-between gap-2 px-4 pt-3">
         {/* Puntos Jugador */}
         <div className="min-w-0 flex-1 rounded-xl border-2 border-amber-700/60 bg-amber-950/80 px-2 py-2 text-center shadow-lg backdrop-blur-md">
           <div className="flex items-center justify-center gap-1">
@@ -749,18 +749,18 @@ export default function App() {
       </div>
 
       {/* DIÁLOGO / ANUNCIOS */}
-      <div className="z-20 my-2 px-6 py-2 bg-gradient-to-r from-amber-950/90 via-amber-900/90 to-amber-950/90 border border-amber-600/50 rounded-full shadow-2xl max-w-lg text-center">
+      <div className="z-20 my-2 shrink-0 max-w-lg rounded-full border border-amber-600/50 bg-gradient-to-r from-amber-950/90 via-amber-900/90 to-amber-950/90 px-4 py-2 text-center sm:px-6">
         <p className="text-sm md:text-base font-semibold text-amber-200">{dialogText}</p>
       </div>
 
       {/* TAPETE DE JUEGO (MESA DE MADERA Y CUERO REPUJADO) */}
-      <div className="relative w-full max-w-3xl h-[58vh] my-auto rounded-3xl p-6 flex flex-col justify-between items-center shadow-[inset_0_0_80px_rgba(0,0,0,0.9)] border-8 border-[#3a1d0d] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4a2a18] via-[#2d180d] to-[#160a04] overflow-hidden">
+      <div className="relative my-auto flex h-[42svh] min-h-[300px] w-full shrink-0 max-w-3xl flex-col items-center justify-between overflow-hidden rounded-3xl border-4 border-[#3a1d0d] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4a2a18] via-[#2d180d] to-[#160a04] p-3 shadow-[inset_0_0_80px_rgba(0,0,0,0.9)] sm:h-[50vh] sm:border-8 sm:p-6 lg:h-[58vh]">
         
         {/* Textura de Cuero Central */}
         <div className="absolute inset-4 border-2 border-dashed border-amber-800/30 rounded-2xl pointer-events-none" />
 
         {/* --- MANO RIVAL (CPU) --- */}
-        <div className="flex gap-3 items-center z-10">
+        <div className="z-10 flex items-center gap-2 sm:gap-3">
           {cpuHand.map((card, idx) => {
             const isRevealed = revealedCpuCard && revealedCpuCard.id === card.id;
             return (
@@ -768,7 +768,7 @@ export default function App() {
                 key={card.id || idx}
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="w-16 h-24 md:w-20 md:h-28 rounded-lg bg-gradient-to-br from-amber-900 to-amber-950 border-2 border-amber-700 shadow-xl flex flex-col justify-center items-center relative overflow-hidden"
+                className="relative flex h-20 w-14 flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-amber-700 bg-gradient-to-br from-amber-900 to-amber-950 shadow-xl sm:h-24 sm:w-16 md:h-28 md:w-20"
               >
                 {isRevealed ? (
                   <div className="bg-amber-100 text-amber-950 w-full h-full p-1 flex flex-col justify-between items-center rounded">
@@ -785,7 +785,7 @@ export default function App() {
         </div>
 
         {/* --- MESA CENTRAL (CARTAS JUGADAS) --- */}
-        <div className="z-10 my-auto flex h-36 w-full max-w-xl items-stretch justify-center gap-2">
+        <div className="z-10 my-auto flex h-24 w-full max-w-xl items-stretch justify-center gap-1 sm:h-36 sm:gap-2">
           <PlayedHistory
             cards={matchPlayedCpuCards}
             latestCard={playedCpuCards.at(-1)}
@@ -799,7 +799,7 @@ export default function App() {
         </div>
 
         {/* --- MANO DEL JUGADOR --- */}
-        <div className="flex gap-4 items-center z-10">
+        <div className="z-10 flex items-center gap-2 sm:gap-4">
           {playerHand.map((card, idx) => {
             const isHigh = getHierarchyPower(card) >= 11;
             return (
@@ -809,7 +809,7 @@ export default function App() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => playCard(idx)}
                 disabled={turn !== 'player' || Boolean(pendingCall)}
-                className={`w-20 h-28 md:w-24 md:h-36 bg-gradient-to-b from-amber-50 to-amber-100 text-amber-950 rounded-xl border-2 ${
+                className={`h-24 w-16 bg-gradient-to-b from-amber-50 to-amber-100 text-amber-950 rounded-xl border-2 sm:h-28 sm:w-20 md:h-36 md:w-24 ${
                   isHigh ? 'border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.5)]' : 'border-amber-700'
                 } shadow-2xl p-2 flex flex-col justify-between items-center relative transition-all`}
               >
@@ -834,7 +834,7 @@ export default function App() {
       </div>
 
       {/* --- BOTONES DE CANTOS Y ACCIONES --- */}
-      <div className="w-full max-w-xl px-4 mb-4 z-20 flex flex-col gap-2">
+      <div className="z-20 mb-4 flex w-full shrink-0 flex-col gap-2 px-4 pb-[env(safe-area-inset-bottom)] max-w-xl">
         {pendingCall?.from === 'cpu' && (
           <div className="flex flex-wrap justify-center gap-2">
             <button
